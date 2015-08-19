@@ -1,0 +1,182 @@
+/*---------------------------
+Layout
+----------------------------- */
+#uploadOptions {
+    text-align: center;
+}
+
+#uploadOptions img {
+    margin: 0 0 20px; /*sets the bottom of the image with a margin of 20px, the top, left and right are 0px*/
+}
+
+body {
+    min-height: 2000px;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.panel-body > img {
+    width: 256px;
+    height: 256px;
+}
+
+/*---------------------------
+Typography
+----------------------------- */
+
+body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+}
+
+.well .page-header {
+    margin-top: 0;
+}
+
+.well .page-header h1 {
+    margin-top: 0;
+}
+
+.well {
+    margin: 20px 0;
+}
+
+/*---------------------------
+Carousel
+----------------------------- */
+.carousel {
+    margin-top: 60px;
+}
+
+.carousel-caption {
+    font-size: 24px;
+    z-index: 10;
+}
+
+.carousel-caption h4 {
+    font-size: 32px;
+}
+
+
+#myCarousel .item { height: 400px; }
+
+#slide1 {
+    background: url('/static/web_interface/images/carousel_medium_01.jpg') top center no-repeat;
+}
+
+#slide2 {
+    background: url('/static/web_interface/images/carousel_medium_image_upload.jpg') top center no-repeat;
+}
+
+#slide3 {
+    background: url('/static/web_interface/images/carousel_medium_video_upload.jpg') top center no-repeat;
+}
+
+#slide4 {
+    background: url('/static/web_interface/images/carousel_medium_audio_upload.jpg') top center no-repeat;
+}
+
+#slide5 {
+    background: url('/static/web_interface/images/carousel_medium_01.jpg') top center no-repeat;
+}
+
+/*---------------------------
+Sticky footer styles
+----------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/*---------------------------
+Media Queries
+----------------------------- */
+
+/*Potrait and landscape phone*/
+@media (max-width: 480px) {
+    
+}
+
+/*Landscape phone to potrait tablet*/
+@media (max-width: 768px) {
+    #myCarousel .item { height: 310px; }
+
+    #slide1 {
+        background: url('/static/web_interface/images/carousel_small_01.jpg') top center no-repeat;
+    }
+    
+    #slide2 {
+        background: url('/static/web_interface/images/carousel_small_image_upload.jpg') top center no-repeat;
+    }
+    
+    #slide3 {
+        background: url('/static/web_interface/images/carousel_small_video_upload.jpg') top center no-repeat;
+    }
+    
+    #slide4 {
+        background: url('/static/web_interface/images/carousel_small_audio_upload.jpg') top center no-repeat;
+    }
+    
+    #slide5 {
+        background: url('/static/web_interface/images/carousel_small_01.jpg') top center no-repeat;
+    }
+    
+    .carousel-caption {
+        font-size: 16px;
+    }
+        
+    .carousel-caption h4 {
+        font-size: 22px;
+    }
+    
+    .container {
+        width: auto;
+        max-width: 680px;
+    }
+    
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+}
+
+/*Large desktop*/
+@media (min-width: 1200px) {
+    #myCarousel .item { height: 500px; }
+
+    #slide1 {
+        background: url('/static/web_interface/images/carousel_large_01.jpg') top center no-repeat;
+    }
+    
+    #slide2 {
+        background: url('/static/web_interface/images/carousel_large_image_upload.jpg') top center no-repeat;
+    }
+    
+    #slide3 {
+        background: url('/static/web_interface/images/carousel_large_video_upload.jpg') top center no-repeat;
+    }
+    
+    #slide4 {
+        background: url('/static/web_interface/images/carousel_large_audio_upload.jpg') top center no-repeat;
+    }
+    
+    #slide5 {
+        background: url('/static/web_interface/images/carousel_large_01.jpg') top center no-repeat;
+    }
+}

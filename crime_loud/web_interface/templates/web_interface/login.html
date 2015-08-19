@@ -1,0 +1,253 @@
+{% extends "web_interface/template.html" %}
+
+{% block title %} Login or Register {% endblock  %}
+
+{%block navbar%}
+<div class= "navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse" type="button" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand">Neigbourhood Watch</a>
+				</div>
+ </div><!-- end container -->
+</div><!--End of Navigation bar-->
+{%endblock%}
+{% block content %}
+{%if type == -1%}
+{% if captcha_response %}
+        <div class="col-md-3"></div>
+        <div class="col-md-6 alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;
+                </span><span class="sr-only">Close</span></button>
+                <strong>{{ captcha_response }}</strong>.
+        </div>
+        <div class="col-md-3"></div>
+        {% else %}
+        <div class="col-md-3"></div>
+        <div class="col-md-6 alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;
+                </span><span class="sr-only">Close</span></button>
+                <strong>Warning!</strong> An incorrect Username or Password was specified.
+                </div>
+        <div class="col-md-3"></div>
+{% endif %}
+{%endif%}
+<div class="row" id="registerOrUpload">
+    <!--<div class="col-md-12">
+            
+            <div class="well">
+                    <div class="page-header">
+                            <h1>Register as a member <small>Registering helps with verification of uploads</small></h1>
+                    </div><!-- end page-header 
+                    
+                    <p class="lead">Take a Picture, audio or video of an incident</p>
+                    
+                    <a class="btn btn-large btn-primary" href="/takePhoto" role="button" data-toggle="modal">Take an image</a>
+                    <a href="#LoginModal" role="button" class="btn btn-large btn-default" data-toggle="modal" >Login to upload</a>
+                    <a href="#" class="btn btn-large btn-link">or upload anonymously</a>
+            </div><!-- end well -->
+            
+    </div>
+    <div class="col-md-12">
+            
+            <div class="well">
+                    <div class="page-header">
+                              <small>Login to access the system and make use of the stored PDE</small>
+                    </div><!-- end page-header -->
+                <div class="clearfix"></div>
+                <!--Login form-->
+                <form id="login_form" class="form-horizontal" role="form" action="/login" method="post" data-parsley-validate>{% csrf_token %}
+                <div class="form-group">
+                        <label for="inputUsername3" class="col-sm-2 control-label">Username</label>
+                        <div class="col-sm-8">
+                                <input type="email" class="form-control" id="inputUsername3"
+                                        placeholder="u12345678" name="loginEmail" required >
+                                </div>
+                </div>
+                <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-8">
+                                <input type="password" class="form-control" id="inputPassword3"
+                                        placeholder="Password" name="loginPassword" required>
+                        </div>
+                </div>
+{% if login_count < 3 %}
+<!--<div id="reCaptcha_div" class="form-group hidden">
+	<label for="inputPassword3" class="col-sm-2 control-label">Are you human?</label>
+	<div class="col-sm-8">
+            <span class="validation_error">{{ captcha_response }}</span>
+        
+            <script type="text/javascript"
+            src="http://api.recaptcha.net/challenge?k=6Leu-PsSAAAAAJrGGi9q_eltXUHPHylKo3OOZhHP">
+            </script>
+            
+            <noscript>
+            <iframe src="http://api.recaptcha.net/noscript?k=6Leu-PsSAAAAAJrGGi9q_eltXUHPHylKo3OOZhHP"
+            height="300" width="500" frameborder="0">
+	    </iframe><br>
+            <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+            </textarea>
+            <input type="hidden" name="recaptcha_response_field" 
+            value="manual_challenge">
+            </noscript>
+	    <input type="submit" value="Save"/>
+	</div>
+</div>-->
+<script>
+	//Updating the action once the user has made 3 incorrect login attempts.
+	//This is to check that the reCaptcha is correct and authenticate the user.
+	document.getElementById('login_form').action = '/login';
+</script>
+{% else %}
+<div id="reCaptcha_div" class="form-group">
+	<label for="inputPassword3" class="col-sm-2 control-label">Are you human?</label>
+	<div class="col-sm-8">
+        
+            <script type="text/javascript"
+            src="http://api.recaptcha.net/challenge?k=6Leu-PsSAAAAAJrGGi9q_eltXUHPHylKo3OOZhHP">
+            </script>
+            
+            <noscript>
+            <iframe src="http://api.recaptcha.net/noscript?k=6Leu-PsSAAAAAJrGGi9q_eltXUHPHylKo3OOZhHP"
+            height="300" width="500" frameborder="0">
+	    </iframe><br>
+            <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+            </textarea>
+            <input type="hidden" name="recaptcha_response_field" 
+            value="manual_challenge">
+            </noscript>
+	    <!--<input type="submit" value="Save"/>-->
+	</div>
+</div>
+
+<script>
+	//Updating the action once the user has made 3 incorrect login attempts.
+	//This is to check that the reCaptcha is correct and authenticate the user.
+	document.getElementById('login_form').action = '/re-login';
+</script>
+{% endif %}
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-8">
+	<input type="hidden" name="user_ip" value={{ user_ip }}>
+	<input type="hidden" name="login_count" value={{ login_count }}>
+    <button id="login_form_sbmt_btn" type="submit" class="btn btn-default" style="background-color: #151B54; text-align: center; color:white;">Sign in</button>
+  </div>
+</div>
+</form><!--End of Login form-->
+
+                   <a class="btn btn-large btn-primary" href="#RegisterModal" role="button" data-toggle="modal">Register</a>
+                  <!-- <a href="#LoginModal" role="button" class="btn btn-large btn-default" data-toggle="modal" >Login </a>-->
+                    <p class="lead"><strong>Law Enforcement Agent or Judiciary or Digital Forensic Investigator</strong></p>
+                    
+                   
+            </div><!-- end well -->
+            
+    </div><!-- end col-md-12 -->
+    
+    <div class="col-sm-feature">
+        <!-- The login modal -->
+        <div class="modal fade" id="LoginModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form class="form-horizontal" method="post" action="login">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal">&times;</button>
+                            
+                            <h4 class="modal-title">Login to Crime_loud </h4>
+                        </div><!-- end modal-header -->
+                        
+                        <div class="modal-body">
+                            <div class="form-group">
+                                    <label class="col-lg-2 control-label" for="loginEmail">Enter Email: </label>
+                                    <div class="col-lg-10">
+                                            <input class="form-control" name = "loginEmail" id="loginEmail" type="email">
+                                    </div><!-- end col-lg-10 -->
+                            </div><!-- end form-group -->
+                                    
+                            <div class="form-group">
+                                    <label class="col-lg-2 control-label" for="loginPassword">Enter Password: </label>
+                                    <div class="col-lg-10">
+                                            <input class="form-control" name = "loginPassword" id="loginPassword" type = "password">
+                                    </div><!-- end col-lg-10 -->
+                            </div><!-- end form-group -->
+                            
+                        </div> <!-- end modal-body -->
+                        
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                            <button  class="btn btn-primary" type="submit">Submit</button>
+                        </div><!-- end modal-footer -->
+                        
+                    </form>
+    
+                </div>   
+            </div>  
+        </div>
+    </div>
+    <div class="col-sm-4 feature">		
+            <!-- The register modal -->
+            <div class="modal fade" id="RegisterModal">
+                    <div class="modal-dialog">
+                            <div class="modal-content">
+                                    <form class="form-horizontal" method="post" action="register">
+                                            <div class="modal-header">
+                                                    <button class="close" data-dismiss="modal">&times;</button>
+                                                    
+                                                    <h4 class="modal-title">Register to use Crime_loud </h4>
+                                            </div><!-- end modal-header -->
+                                            <div class="modal-body">
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="idNum">ID No: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input class="form-control" name = "registerID" id="registerID" placeholder="Enter 13-digit ID number or Passport number here" type="text"/>
+                                                            </div><!-- end col-lg-10 -->
+                                                    </div><!-- end form-group -->
+                                                            
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerName">Name: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input class="form-control" name = "registerName" id="registerName" type = "text"/>
+                                                            </div><!-- end col-lg-10 -->
+                                                    </div><!-- end form-group -->
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerSurname">Surname: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input class="form-control" name = "registerSurname" id="registerSurname"  type="text">
+                                                            </div><!-- end col-lg-10 -->
+                                                    </div><!-- end form-group -->
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerEmail">Email: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input type="email" name = "registerEmail" id="registerEmail" class="form-control">
+                                                            </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerPassword">Password: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input type="password" name = "registerPassword" id="registerPassword" placeholder = "Create a password that can log you into the system in future"class="form-control">
+                                                            </div>
+                                                    </div>
+                                                    
+                                            </div><!-- end modal-body -->
+                                            <div class="modal-footer">
+                                                    <input class="btn btn-default" data-dismiss="modal" type="submit" value='Close'>
+                                                    <input  class="btn btn-primary" type="submit" value='Submit'/>
+                                            </div><!-- end modal-footer -->
+                                    </form>
+                            </div><!-- end modal-content -->
+                    </div><!-- end modal-dialog -->
+    </div>	
+</div><!-- end registerOrUpload -->
+{% endblock  %}
+
+
+

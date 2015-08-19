@@ -1,0 +1,97 @@
+{% extends "web_interface/template.html" %}
+
+{% block title %} Welcome {% endblock  %}
+{% block navbar %}
+<div class= "navbar navbar-default navbar-fixed-top">
+    <div class="container">
+            <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse" type="button" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Neigbourhood Watch</a>
+            </div><!-- end navbar-header -->
+
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                            <li>
+                                    <a href="/backHome">Home</a>
+                            </li>
+                            <li class="active">
+                                    <a href="#">View Documentation</a>
+                            </li>
+                            <li>
+                                    <a href="/documentation">First Responder</a>
+                            </li>
+                    </ul><!-- end navbar-left -->
+                    <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="/viewProfile" >
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    {{ name }} {{ surname }}</span>
+                                </a>
+                            </li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Sign out</a></li>        
+                            
+                    </ul><!-- end navbar-right -->
+            </div><!-- end navbar-collapse -->
+    
+    </div><!-- end container -->
+</div><!--End of Navigation bar-->
+{% endblock %}
+
+{% block carousel%} {% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="row" id="displayInfoAndUploads">
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" style="background-color: #151B54; color: white;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Choose Case<span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+                {%for i in case%}
+                    <li><a href="/viewCaseD/{{i.0}}">{{i.2}} {{i.1}}</a></li>
+                {%endfor%}
+            </ul>
+            <button type="button" class="btn btn-default" style="background-color: #151B54; color: white;">Add Case</button>
+            <a href="/search/{{case_id}}"><button type="button" class="btn btn-default" style="background-color: #151B54; color: white;">Search</button></a>
+            <a href="/generatePDF/{{case_id}}"><button type="button" class="btn btn-default" style="background-color: #151B54; color: white;">Download PDF</button></a>
+        </div>
+        <h2 style="text-align: center; color: #151B54;"><b>Potential Digital Evidence for case " {{caseName}} {{caseNumber}} "</b></h2>
+        <br/><br/>
+        <div class="col-sm-4 feature">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #151B54; text-align: center; color:white;">Images uploaded as on {{date}}</div>
+                 <div class="list-group" style="max-height: 300px; overflow-y: auto; overflow-x:hidden;">
+                    {%for image in images%}
+                        <a href="ViewImageLEA/{{image.id}}" class="list-group-item">Documentation : {{image.data}}</a>  
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 feature">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #151B54; text-align: center; color:white;">audio uploaded as on {{date}}</div>
+                <div class="list-group" style="max-height: 400px; overflow-y: auto; overflow-x:hidden;">
+                    {%for aud in audio%}
+                        <a href="ViewAudioLEA/{{aud.id}}" class="list-group-item">Documantation : {{aud.data}}</a>  
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 feature">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #151B54; text-align: center; color:white;">video uploaded as on {{date}}</div>
+                 <div class="list-group" style="max-height: 300px; overflow-y: auto; overflow-x:hidden;">
+                    {%for vid in video%}
+                        <a href="ViewVideoLEA/{{vid.id}}" class="list-group-item">Documenation : {{vid.data}}</a>  
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

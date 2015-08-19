@@ -1,0 +1,60 @@
+{% extends "web_interface/template.html" %}
+{% block title %} Take a Picture {% endblock  %}
+{% block carousel%} {% endblock %}
+{% block content %}
+    <div class="embed-responsive embed-responsive-16by9">
+        <video id="video" controls class="embed-responsive-item"></video>
+    </div>
+    
+    <button id="snap" class="btn btn-default" onclick="snap()">Snap Photo</button><br/>
+    <!--<div class="container container-main">
+        <div class="container-canvas">
+            <canvas id="canvas" width="640" height="480"></canvas>
+        </div>
+    </div>-->
+    <div class="embed-responsive embed-responsive-16by9">
+        <video id="video" controls class="embed-responsive-item"></video>
+    </div>
+    <script>
+   
+        navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+        
+        var video;
+        if (navigator.getUserMedia) {
+           navigator.getUserMedia (
+        
+              // constraints
+              {
+                 video: true,
+                 audio: true
+              },
+        
+              // successCallback
+              function(localMediaStream) {
+                 video = document.getElementById('video');
+                 video.src = window.URL.createObjectURL(localMediaStream);
+                 video.play()
+              },
+        
+              // errorCallback
+              function(err) {
+                 console.log("The following error occured: " + err);
+              }
+           );
+        } else {
+           console.log("getUserMedia not supported");
+        }
+        
+        function snap()
+        {
+            
+            //alert(video.src);
+            var vid = document.getElementById('video1');
+            vid.src = video.src;
+            vid.play();
+        }
+    </script>
+{% endblock  %}

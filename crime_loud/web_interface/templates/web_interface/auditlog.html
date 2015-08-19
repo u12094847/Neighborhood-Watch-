@@ -1,0 +1,152 @@
+{% extends "web_interface/template.html" %}
+
+{% block title %} Welcome {% endblock  %}
+{% block navbar %}
+<div class= "navbar navbar-default navbar-fixed-top">
+    <div class="container">
+            <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse" type="button" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Neigbourhood Watch</a>
+            </div><!-- end navbar-header -->
+
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                            <li class="active">
+                                    <a href="#">Home</a>
+                            </li>
+                            <li>
+                                    <a href="#">View Documentation</a>
+                            </li>
+                    </ul><!-- end navbar-left -->
+                    <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="/viewProfile" >
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    {{ name }} {{ surname }}</span>
+                                </a>
+                            </li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Sign out</a></li>        
+                            
+                    </ul><!-- end navbar-right -->
+            </div><!-- end navbar-collapse -->
+    
+    </div><!-- end container -->
+</div><!--End of Navigation bar-->
+{% endblock %}
+
+{% block carousel%} {% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="row" id="displayInfoAndUploads">
+        <div class="col-sm-12 feature">
+            <div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#pane1" data-toggle="tab">Community PD</a></li>
+    <li><a href="#pane2" data-toggle="tab">First Respondant PDE</a></li>
+    <li><a href="#pane3" data-toggle="tab">Login</a></li>
+    <!--<li><a href="#pane4" data-toggle="tab">Login</a></li>-->
+  </ul>
+  <div class="tab-content">
+   <!-- <div id="pane1" class="tab-pane active">
+      <h4>Case Audit Log</h4>
+		<!-- Table1 -
+		<table class="table table-hover table-bordered">
+			<tr>
+				<td><strong> User </strong></td>
+                                <td><strong> Date </strong></td>
+                                <td><strong> Action </strong></td>
+				<td><strong> Old value </strong></td>
+				<td><strong> New value </strong></td>
+			</tr>
+			{% for x in cases %}
+			<tr>
+				<td> {{x.1}} </td>
+				<td> {{x.2}} </td>
+				<td> {{x.3}} </td>
+				<td> {{x.4}} </td>
+				<td> {{x.5}} </td>
+			</tr>
+			{% endfor %}
+		</table>
+		<!-- ./Table1 
+  </div>-->
+    <div id="pane1" class="tab-pane active">
+    <h4>Community PDE Audit Log</h4>
+      <!-- Table2 -->
+		<table class="table table-hover table-bordered">
+			<tr>
+				<td><strong> User </strong></td>
+				<td><strong> PDE Title </strong></td>
+				<td><strong> Date </strong></td>
+				<td><strong> PDE Date</strong></td>
+				<td><strong> Action </strong></td>
+				<td><strong> Case </strong></td>
+			</tr>
+			{% for x in comPDE %}
+			<tr>
+				<td> {{x.0}} </td>
+				<td> {{x.1}} </td>
+				<td> {{x.2}} </td>
+				<td> {{x.3}} </td>
+				<td> {{x.4}} </td>
+				<td> {{x.5}} </td>
+                        </tr>
+			{% endfor %}
+		</table>
+		<!-- ./Table2 -->
+    </div>
+    <div id="pane2" class="tab-pane">
+      <h4>First Respodant Audit Log</h4>
+      <!-- Table3 -->
+		<table class="table table-hover table-bordered">
+			<tr>
+				<td><strong> User </strong></td>
+				<td><strong> Date </strong></td>
+				<td><strong> PDE Date </strong></td>
+				<td><strong> Action </strong></td>
+				<td><strong> Case </strong></td>
+			</tr>
+			{% for x in authPDE %}
+			<tr>
+				<td> {{x.0}} </td>
+				<td> {{x.1}} </td>
+				<td> {{x.2}} </td>
+				<td> {{x.3}} </td>
+				<td> {{x.4}} </td>
+			</tr>
+			{% endfor %}
+		</table>
+		<!-- ./Table3 -->
+    </div>
+    <div id="pane3" class="tab-pane">
+      <h4>Login Audit Log</h4>
+      <!-- Table4 -->
+		<table class="table table-hover table-bordered">
+			<tr>
+				<td><strong> User </strong></td>
+				<td><strong> Date </strong></td>
+				<td><strong> Action </strong></td>
+			</tr>
+			{% for x in login %}
+			<tr>
+				<td> {{x.0}} </td>
+				<td> {{x.1}} </td>
+				<td> {{x.2}} </td>
+			</tr>
+			{% endfor %}
+		</table>
+		<!-- ./Table4 -->
+    </div>
+  </div><!-- /.tab-content -->
+</div><!-- /.tabbable -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+

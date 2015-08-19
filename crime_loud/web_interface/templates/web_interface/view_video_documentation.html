@@ -1,0 +1,122 @@
+{% extends "web_interface/template.html" %}
+
+{% block title %} Welcome {% endblock  %}
+{% block navbar %}
+<div class= "navbar navbar-default navbar-fixed-top">
+    <div class="container">
+            <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse" type="button" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Neigbourhood Watch</a>
+            </div><!-- end navbar-header -->
+
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                                <a href="/backHome">Home</a>
+                        </li>
+                        <li>
+                                <a href="/documentation">View Documentation</a>
+                        </li>
+                        <li>
+                                <a href="/documentations">First Responder</a>
+                        </li>
+                    </ul><!-- end navbar-left -->
+                    <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="/viewProfile" >
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    {{ name }} {{ surname }}</span>
+                                </a>
+                            </li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Sign out</a></li>        
+                            
+                    </ul><!-- end navbar-right -->
+            </div><!-- end navbar-collapse -->
+    
+    </div><!-- end container -->
+</div><!--End of Navigation bar-->
+{% endblock %}
+
+{% block carousel%} {% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <div class="row" id="displayInfoAndUploads">
+        <div class="col-md-6 feature">
+            <div align="center" class="embed-responsive embed-responsive-16by9">
+                 <video autoplay controls class="embed-responsive-item">
+                    <source src="../media/video/{{video}}" type="video/mp4">
+                    <source src="../media/video/{{video}}" type="video/3gp">
+                    <source src="../media/video/{{video}}" type="video/avi">
+                    <source src="../media/video/{{video}}" type="video/asf">
+                    <source src="../media/video/{{video}}" type="video/mov">
+                    <source src="../media/video/{{video}}" type="video/mwv">
+                </video>
+            </div>
+        </div>
+        <div class="col-md-6 feature">
+            
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+              <div class="panel-heading">Video Information</div>
+                <ul class="list-group">
+                  <li class="list-group-item"><strong>Title: </strong> {{title}}</li>
+                  <li class="list-group-item"><strong>Description: </strong>{{ description }}</li>
+                  <li class="list-group-item"><strong>Location: </strong>{{location}}</li>
+                  <li class="list-group-item"><strong>Date: </strong>{{date}}</li>
+                  <li class="list-group-item"><strong>Case Number:</strong> {{ caseNumber }}</li>
+                  {%if type == 1%}
+                    <li class="list-group-item" style="color:green"><span class="badge" id="myspan"><a href="#viewData" data-toggle="modal">view</a></span>
+                        <strong style="color:black">Validity: </strong>Hashes are equal</li>
+                  {%else%}
+                    <li class="list-group-item" style="color:green"><span class="badge" id="myspan"><a href="#viewData" data-toggle="modal">view</a></span>
+                        <strong style="color:black">Validity: </strong>Hashes are equal</li>
+                  {%endif%}
+                </ul>
+            </div>
+            
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Assign Case<span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    {%for i in cases%}
+                        <li><a href="/AssignVideo/{{videos}}/{{i.1}}">{{i.0}}</a></li>
+                    {%endfor%}
+                </ul>
+            </div>
+            <form action="/Delete" method="post">
+               <input type="hidden" name="ID" value=" {{videos}} "/>
+               <input type="submit" name="submit" value="delete"/>
+            </form>
+            <form action="/Download" method="post">
+               <input type="hidden" name="ID" value="{{video}} "/>
+               <input type="hidden" name="type" value="video"/>
+               <input type="submit" name="submit" value="download"/>
+            </form>
+        </div>
+        <div class="col-sm-4 feature">		
+            <!-- The register modal -->
+            <div class="modal fade" id="viewData">
+                    <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">The hashes of the PDE </h4>
+                                </div><!-- end modal-header -->
+                                <div class="modal-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-item-default"><strong>Old Hash: </strong>{{oldHash}}</li>
+                                        <li class="list-group-item list-group-item-default"><strong>current Hash: </strong>{{newHash}}</li>
+                                    </ul>
+                                </div><!-- end form-group -->
+                            </div><!-- end modal-content -->
+                    </div><!-- end modal-dialog -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

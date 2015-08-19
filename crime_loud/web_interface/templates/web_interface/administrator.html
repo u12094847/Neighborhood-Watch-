@@ -1,0 +1,194 @@
+{% extends "web_interface/template.html" %}
+
+{% block title %} Welcome {% endblock  %}
+{% block navbar %}
+<div class= "navbar navbar-default navbar-fixed-top">
+    <div class="container">
+            <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse" type="button" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Neigbourhood Watch</a>
+            </div><!-- end navbar-header -->
+
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                            <li class="active">
+                                    <a href="#">Home</a>
+                            </li>
+                            <li>
+                                    <a href="#">View Documentation</a>
+                            </li>
+                    </ul><!-- end navbar-left -->
+                    <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="/viewProfile" >
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    {{ name }} {{ surname }}</span>
+                                </a>
+                            </li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Sign out</a></li>        
+                            
+                    </ul><!-- end navbar-right -->
+            </div><!-- end navbar-collapse -->
+    
+    </div><!-- end container -->
+</div><!--End of Navigation bar-->
+{% endblock %}
+
+{% block carousel%} {% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="row" id="displayInfoAndUploads">
+        <div class="col-sm-12 feature">
+            <div class="col-sm-6 feature">
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/auditlog" role="button" type="button" class="btn btn-primary" style="background-color: #151B54; text-align: center; color:white;">Audit Log</a>
+                    <a href="#RegisterModal" role="button" type="button" class="btn btn-primary" data-toggle="modal" style="background-color: #151B54; text-align: center; color:white;">Add User</a>
+                    <button type="button" class="btn btn-primary" style="background-color: #151B54; text-align: center; color:white;">Assign Case</button>
+                    <a href="/view_deleted" role="button" type="button" class="btn btn-primary" style="background-color: #151B54; text-align: center; color:white;">Deleted PDE</a>
+                </div>
+                <h4>Use the add user button to register new users to the system and assign case to assign users to cases.</h4>
+                <br/>
+            </div >
+            <div class="col-sm-6 feature">
+                <!--<div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #151B54; text-align: center; color:white;">Add New Case</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="post" action="add_case">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="idNum">Case Name: </label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="name" placeholder="Case Name as SAPS Report Database" type="text"/>
+                            </div><!-- end col-lg-10 
+                        </div><!-- end form-group 
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="idNum">Case Number: </label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="number" placeholder="Case Number as SAPS Report Database" type="text"/>
+                            </div><!-- end col-lg-10 
+                        </div><!-- end form-group -->
+                        <!--Case Name: <input type="text" name="name" placeholder="Case Name as SAPS Report Database"/><br/>
+                        Case Number: <input type="text" name="number" placeholder="Case Number as SAPS Report Database"/><br/>
+                        Case Type: <input type="text" name="num" placeholder="e.g Burgary, Vandalism or Accident"/><br/>
+                        <input type="submit" name="submit" value="Add" style="background-color: #151B54; color: white;"/>
+                        <input  class="btn btn-primary" type="submit" value='Submit' style="background-color: #151B54; color: white;"/>
+                    </form>
+                    </div>
+                </div>-->
+            </div >
+        </div>
+        <div class="col-sm-12 feature">
+        <div class="col-sm-4 feature">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #151B54; text-align: center; color:white;">Images uploaded as on {{date}}</div>
+                 <div class="list-group" style="max-height: 300px; overflow-y: auto; overflow-x:hidden;">
+                    {%for image in images%}
+                        <a href="view_image/{{image.id}}" class="list-group-item">{{image.title}} : {{image.data}}</a>  
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 feature">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #151B54; text-align: center; color:white;">audio uploaded as on {{date}}</div>
+                <div class="list-group" style="max-height: 400px; overflow-y: auto; overflow-x:hidden;">
+                    {%for aud in audio%}
+                        <a href="view_audio/{{aud.id}}" class="list-group-item">{{aud.title}} : {{aud.data}}</a>  
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 feature">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #151B54; text-align: center; color:white;">video uploaded as on {{date}}</div>
+                 <div class="list-group" style="max-height: 300px; overflow-y: auto; overflow-x:hidden;">
+                    {%for vid in video%}
+                        <a href="view_video/{{vid.id}}" class="list-group-item">{{vid.title}} : {{vid.data}}</a>  
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-4 feature">		
+            <!-- The register modal -->
+            <div class="modal fade" id="RegisterModal">
+                    <div class="modal-dialog">
+                            <div class="modal-content">
+                                    <form class="form-horizontal" method="post" action="RegisterUser">
+                                            <div class="modal-header">
+                                                    <button class="close" data-dismiss="modal">&times;</button>
+                                                    
+                                                    <h4 class="modal-title">Register for Neigbourhood Watch</h4>
+                                            </div><!-- end modal-header -->
+                                            <div class="modal-body">
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="idNum">ID No: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input class="form-control" name = "registerID" id="registerID" placeholder="Enter 13-digit ID number or Passport number here" type="text"/>
+                                                            </div><!-- end col-lg-10 -->
+                                                    </div><!-- end form-group -->
+                                                            
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerName">Name: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input class="form-control" name = "registerName" id="registerName" type = "text"/>
+                                                            </div><!-- end col-lg-10 -->
+                                                    </div><!-- end form-group -->
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerSurname">Surname: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input class="form-control" name = "registerSurname" id="registerSurname"  type="text">
+                                                            </div><!-- end col-lg-10 -->
+                                                    </div><!-- end form-group -->
+                                                    
+                                                   <!-- <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerCell">Cell:</label>
+                                                            <div class="col-lg-10">
+                                                                    <input class="form-control" name = "registerCell" id="registerCell"  type="text">
+                                                            </div><!-- end col-lg-10 
+                                                    </div>end form-group -->
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerEmail">Email: </label>
+                                                            <div class="col-lg-10">
+                                                                    <input type="email" name = "registerEmail" id="registerEmail" class="form-control">
+                                                            </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerPassword">Password: </label>
+                                                            <div class="col-lg-10">
+                                                                <input type="password" name = "registerPassword" id="registerPassword" placeholder = "Create a password that can log you into the system in future"class="form-control">
+                                                            </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="col-lg-2 control-label" for="registerPassword">User Role: </label>
+                                                            <div class="col-lg-10">
+                                                                <select name="role">
+                                                                    <option value="LEA">Law Enforcement Agent</option>
+                                                                    <option value="JDY">Judiciary</option>
+                                                                </select>
+                                                            </div>
+                                                    </div>
+                                            </div><!-- end modal-body -->
+                                            <div class="modal-footer">
+                                                    <input class="btn btn-default" data-dismiss="modal" type="submit" value='close'>
+                                                    <input  class="btn btn-primary" type="submit" value='Submit'/>
+                                            </div><!-- end modal-footer -->
+                                    </form>
+                            </div><!-- end modal-content -->
+                    </div><!-- end modal-dialog -->
+    </div>	
+</div><!-- end registerOrUpload -->
+{% endblock %}
+
